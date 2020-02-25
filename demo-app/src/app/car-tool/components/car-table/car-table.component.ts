@@ -14,6 +14,9 @@ export class CarTableComponent implements OnInit {
   @Input()
   cars: Car[] = [];
 
+  @Input()
+  editCarId = -1;
+
   // this is a getter function, much like C# getter property
   get sortedCars() {
     if (this.sortColName.length > 0) {
@@ -39,7 +42,16 @@ export class CarTableComponent implements OnInit {
   }
 
   @Output()
-  deleteCar = new EventEmitter<Car>();
+  editCar = new EventEmitter<number>();
+
+  @Output()
+  deleteCar = new EventEmitter<number>();
+
+  @Output()
+  saveCar = new EventEmitter<number>();
+
+  @Output()
+  cancelCar = new EventEmitter<number>();
 
   constructor() { }
 

@@ -1,6 +1,7 @@
 <table>
   <thead>
     <tr>
+      <!-- If you need to make a dynamically generated header, use a properties data -->
       <th><a href="#" (click)="doSort('id')">Id</a></th>
       <th><a href="#" (click)="doSort('make')">Make</a></th>
       <th><a href="#" (click)="doSort('model')">Model</a></th>
@@ -10,8 +11,25 @@
     </tr>
   </thead>
   <tbody>
-    <!-- Here, "sortedCars" notably does not have parentheses() -->
-    <tr class="app-car-view-row" *ngFor="let car of sortedCars"
-      [car]="car" (deleteCar)="deleteCar.emit($event)"></tr>
+    <ng-container *ngFor="let car of sortedCars">
+      <!-- Here, "sortedCars" notably does not have parentheses() -->
+      <tr class="app-car-view-row" *ngIf="car.id !== editCarId"
+        [car]="car" (editCar)="editCar.emit($event)" (deleteCar)="deleteCar.emit($event)"></tr>
+      <tr class="app-car-edit-row" *ngIf="car.id === editCarId"
+        [car]="car" (saveCar)="saveCar.emit($event)" (cancelCar)="cancelCar.emit()"></tr>
+    </ng-container>
   </tbody>
 </table>
+
+<!-- parameter versus argument
+
+Above, (saveCar) is the parameter and "saveCar.emit($event)" is the argument
+(saveCar) refers to something in car-edit-row while saveCar.emit refers to something
+inside car-table
+(saveCar) is a variable. "saveCar.emit" is an expression
+
+function doIt(x) { // parameter
+  console.log(x);
+}
+
+doIt("Hello"); // argument -->

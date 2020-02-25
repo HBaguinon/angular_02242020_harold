@@ -14,6 +14,10 @@ export class CarHomeComponent implements OnInit {
     { id: 2, make: 'Tesla', model: 'S', year: 2018, color: 'red', price: 100000 },
   ];
 
+  // new property. Change the model before changing UI
+  // Don't just add a new property/field in the Car object. Do this instead:
+  editCarId = -1;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -28,6 +32,10 @@ export class CarHomeComponent implements OnInit {
 
   doRemoveCar(carId: number) {
     this.cars = this.cars.filter(c => c.id !== carId);
+  }
+
+  doEditCar(carId: number) {
+    this.editCarId = carId;
   }
 
 }
