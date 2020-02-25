@@ -14,6 +14,9 @@ export class CarHomeComponent implements OnInit {
     { id: 2, make: 'Tesla', model: 'S', year: 2018, color: 'red', price: 100000 },
   ];
 
+  // sortColName new property
+  sortColName = '';
+
   // new property. Change the model before changing UI
   // Don't just add a new property/field in the Car object. Do this instead:
   editCarId = -1;
@@ -34,6 +37,7 @@ export class CarHomeComponent implements OnInit {
     this.cars = this.cars.filter(c => c.id !== carId);
   }
 
+  // Edit step 7
   doEditCar(carId: number) {
     this.editCarId = carId;
   }

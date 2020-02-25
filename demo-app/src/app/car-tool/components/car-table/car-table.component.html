@@ -13,6 +13,7 @@
   <tbody>
     <ng-container *ngFor="let car of sortedCars">
       <!-- Here, "sortedCars" notably does not have parentheses() -->
+      <!-- Edit step 3 -->
       <tr class="app-car-view-row" *ngIf="car.id !== editCarId"
         [car]="car" (editCar)="editCar.emit($event)" (deleteCar)="deleteCar.emit($event)"></tr>
       <tr class="app-car-edit-row" *ngIf="car.id === editCarId"

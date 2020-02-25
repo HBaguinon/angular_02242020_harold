@@ -13,7 +13,7 @@ export class CarViewRowComponent implements OnInit {
   car: Car;
 
   @Output()
-  editCar = new EventEmitter<number>();
+  editCar = new EventEmitter<number>(); // Edit step 2
 
   @Output()
   deleteCar = new EventEmitter<number>();

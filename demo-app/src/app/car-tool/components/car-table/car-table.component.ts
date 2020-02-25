@@ -9,11 +9,13 @@ import { Car } from '../../models/car';
 })
 export class CarTableComponent implements OnInit {
 
+  @Input() // sortColName added @Input()
   sortColName = '';
 
   @Input()
   cars: Car[] = [];
 
+  // Edit step 4
   @Input()
   editCarId = -1;
 
@@ -41,6 +43,7 @@ export class CarTableComponent implements OnInit {
     }
   }
 
+  // Edit step 5
   @Output()
   editCar = new EventEmitter<number>();
 
