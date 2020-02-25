@@ -14,6 +14,7 @@ export class CarTableComponent implements OnInit {
   @Input()
   cars: Car[] = [];
 
+  // this is a getter function, much like C# getter property
   get sortedCars() {
     if (this.sortColName.length > 0) {
 
