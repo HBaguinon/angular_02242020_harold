@@ -1,6 +1,7 @@
 <app-tool-header headerText="Car Tool"></app-tool-header>
 <!-- Edit step 6 -->
-<app-car-table [cars]=cars [editCarId]="editCarId"
-  (editCar)="doEditCar($event)" (deleteCar)="doRemoveCar($event)">
+<app-car-table [cars]="cars" [editCarId]="editCarId" [sortColName]="sortColName"
+  (editCar)="doEditCar($event)" (deleteCar)="doRemoveCar($event)"
+  (sortColNameEmitted)="doSortCars($event)">
 </app-car-table>
 <app-car-form buttonText="Add Car" (submitCar)="doAppendCar($event)">

@@ -42,4 +42,8 @@ export class CarHomeComponent implements OnInit {
     this.editCarId = carId;
   }
 
+  doSortCars(sortColName: string) {
+    this.sortColName = sortColName;
+  }
+
 }

@@ -56,13 +56,16 @@ export class CarTableComponent implements OnInit {
   @Output()
   cancelCar = new EventEmitter<number>();
 
+  @Output()
+  sortColNameEmitted = new EventEmitter<string>();
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
   doSort(colName: string) {
-    this.sortColName = colName;
+    this.sortColNameEmitted.emit(colName);
   }
 
 
