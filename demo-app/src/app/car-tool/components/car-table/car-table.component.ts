@@ -54,7 +54,7 @@ export class CarTableComponent implements OnInit {
   saveCar = new EventEmitter<number>();
 
   @Output()
-  cancelCar = new EventEmitter<number>();
+  cancelCar = new EventEmitter<void>();
 
   @Output()
   sortColNameEmitted = new EventEmitter<string>();

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Car } from '../../models/car';
+import { CarsService } from '../../services/cars.service';
 
 @Component({
   selector: 'app-car-home',
@@ -9,10 +10,7 @@ import { Car } from '../../models/car';
 })
 export class CarHomeComponent implements OnInit {
 
-  cars: Car[] = [
-    { id: 1, make: 'Ford', model: 'Fusion Hybrid', year: 2019, color: 'blue', price: 45000 },
-    { id: 2, make: 'Tesla', model: 'S', year: 2018, color: 'red', price: 100000 },
-  ];
+  cars: Car[] = [];
 
   // sortColName new property
   sortColName = '';
@@ -21,20 +19,21 @@ export class CarHomeComponent implements OnInit {
   // Don't just add a new property/field in the Car object. Do this instead:
   editCarId = -1;
 
-  constructor() { }
+  constructor(private carsSvc: CarsService) { }
 
   ngOnInit(): void {
+    this.cars = this.carsSvc.all();
   }
 
   doAppendCar(car: Car) {
-    this.cars = this.cars.concat({
-      ...car,
-      id: Math.max(...this.cars.map(c => c.id), 0) + 1,
-    });
+    this.cars = this.carsSvc.append(car).all();
+    // this.cars = this.carsSvc.all(); one version
+    this.editCarId = -1;
   }
 
   doRemoveCar(carId: number) {
     this.cars = this.cars.filter(c => c.id !== carId);
+    this.editCarId = -1;
   }
 
   // Edit step 7
@@ -44,6 +43,31 @@ export class CarHomeComponent implements OnInit {
 
   doSortCars(sortColName: string) {
     this.sortColName = sortColName;
+  }
+
+  // this is Eric's version
+  doReplaceCar(car: Car) {
+     const newCars = this.cars.concat();
+     const carIndex = this.cars.findIndex( c => c.id === car.id);
+     newCars[carIndex] = car;
+     this.cars = newCars;
+     this.editCarId = -1;
+  }
+
+  // this is Eric's version
+  doCancelCar() {
+    this.editCarId = -1;
+  }
+
+  // this is Michael's version
+  doSaveCar(car: Car) {
+    this.cars = this.cars.map(c => (c.id === car.id ? { c, ...car } : c)); // What is this?
+    this.editCarId = -1;
+  }
+
+  // this is Michael's version
+  doCancel() {
+    this.editCarId = -1;
   }
 
 }
