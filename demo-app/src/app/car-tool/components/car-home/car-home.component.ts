@@ -32,7 +32,7 @@ export class CarHomeComponent implements OnInit {
   }
 
   doRemoveCar(carId: number) {
-    this.cars = this.cars.filter(c => c.id !== carId);
+    this.cars = this.carsSvc.remove(carId).all();
     this.editCarId = -1;
   }
 
@@ -47,11 +47,8 @@ export class CarHomeComponent implements OnInit {
 
   // this is Eric's version
   doReplaceCar(car: Car) {
-     const newCars = this.cars.concat();
-     const carIndex = this.cars.findIndex( c => c.id === car.id);
-     newCars[carIndex] = car;
-     this.cars = newCars;
-     this.editCarId = -1;
+    this.cars = this.carsSvc.replace(car).all();
+    this.editCarId = -1;
   }
 
   // this is Eric's version
