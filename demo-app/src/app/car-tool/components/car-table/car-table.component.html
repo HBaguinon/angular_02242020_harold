@@ -11,7 +11,7 @@
     </tr>
   </thead>
   <tbody>
-    <ng-container *ngFor="let car of sortedCars">
+    <ng-container *ngFor="let car of cars">
       <!-- Here, "sortedCars" notably does not have parentheses() -->
       <!-- Edit step 3 -->
       <tr class="app-car-view-row" *ngIf="car.id !== editCarId"

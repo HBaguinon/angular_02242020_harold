@@ -4,3 +4,12 @@ table, td {
   vertical-align: bottom;
 }
 tr:nth-child(even) {background-color: #f2f2f2;}
+body {
+  color: blue;
+}
+text {
+  color: blue;
+}
+h1 {
+  color: green;
+}

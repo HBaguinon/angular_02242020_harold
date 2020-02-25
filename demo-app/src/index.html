@@ -37,7 +37,109 @@
   ✧*｡٩(ˊᗜˋ*)و✧*｡
 
   REST Calls
-  Instead of Postman, for VS Code 
+  Instead of Postman, for VS Code, use REST Client Extension
+
+  JavaScript always runs inside something else
+  JS runs in a queue. It is single-threaded.
+  A Task is an function invoked by the host
+
+  $.ajax(opts, fn cb(r){}) calls XHR/fetch API,
+  which calls the API which sends a response back to
+  C++ module
+  The call is made and then the page continues something else
+  This is asynchronous programming
+  All closures require two functions; one inside the other
+  The purpose of the closure is to share a variable from
+  one task into the other
+  Performance penalty of a closure
+
+  <script>
+    function outer() {
+      let t = 2;
+
+      setTimeout(() => {
+        t = 4;
+      }, 2000);
+
+      return function inner() {
+        console.log(t);
+      };
+    }
+
+    const innerFn = outer();
+    innerFn();
+    setTimeout(innerFn, 4000);
+
+    //console.dir(innerFn);
+  </script>
+  Output will be 2, then 4.
+
+  <script>
+    setTimeout(() => {
+      console.log('a';)
+    }, 0);
+    console.log('b');
+  </script>
+  Output will be b, then a.
+
+  <script>
+    setTimeout(() => {
+      console.log('a';)
+    }, 2000);
+
+    setTimeout(() => {
+      console.log('b';)
+    }, 1000);
+
+    setTimeout(() => {
+      console.log('c';)
+    }, 500);
+  </script>
+  Output will be c, b, a.
+
+  <script>
+    setTimeout(() => {
+      console.log('a';)
+      setTimeout(() => {
+        console.log('b';)
+        setTimeout(() => {
+          console.log('c';)
+        }, 500);
+      }, 1000);
+    }, 2000);
+  </script>
+  Output will be a, b, c.
+
+  Use promises!
+  Success = resolve
+  Failure = reject
+
+  // this function runs immediately
+  const youngMan = new Promise(function youngLady(resolve, reject) {
+
+    setTimeout(() => {
+      console.log('she says yes to the dress');
+      // console.log('she says yes to the dress with someone else!');
+      resolve('she says yes because they get along well');
+      // reject('she fell in love with his best friend...');
+    }, 2000);
+
+  });
+
+  youngMan
+    .then((result) => {
+      console.log(result);
+      console.log('yay she says yes!');
+    });
+    .catch((result) => {
+      console.log('time to sign up for eHarmony...');
+    });
+
+  console.log('young man is waiting...');
+
+  Promises are great for single asynchronous operations
+  with a single result. RXJS is for multiple results.
+  A promise can only have one reject, and that's it.
 -->
 </body>
 </html>

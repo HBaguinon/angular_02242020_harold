@@ -19,20 +19,43 @@ export class CarHomeComponent implements OnInit {
   // Don't just add a new property/field in the Car object. Do this instead:
   editCarId = -1;
 
-  constructor(private carsSvc: CarsService) { }
+  constructor(public carsSvc: CarsService) { }
 
   ngOnInit(): void {
-    this.cars = this.carsSvc.all();
+    this.carsSvc.all().then(cars => {
+      this.cars = cars;
+    });
+
+    // this.cars = this.carsSvc.all();
+  }
+
+  refreshCars() {
+    return this.carsSvc.all().then(cars => {
+      this.cars = cars;
+    });
   }
 
   doAppendCar(car: Car) {
-    this.cars = this.carsSvc.append(car).all();
-    // this.cars = this.carsSvc.all(); one version
+    // this.cars = this.carsSvc.append(car).all();
+    // this.cars = this.carsSvc.all(); // one version
+
+    this.carsSvc
+      .append(car)
+      .then(() => this.refreshCars()); // This is known as a "Promise Chain"
+
+    // if you broke it down into two lines, it might call all() before append() finishes
+
     this.editCarId = -1;
   }
 
   doRemoveCar(carId: number) {
-    this.cars = this.carsSvc.remove(carId).all();
+    this.carsSvc
+      .remove(carId)
+      .then(() => this.carsSvc.all())
+      .then(cars => {
+        this.cars = cars;
+      });
+    // this.cars = this.carsSvc.remove(carId).all();
     this.editCarId = -1;
   }
 
@@ -47,7 +70,13 @@ export class CarHomeComponent implements OnInit {
 
   // this is Eric's version
   doReplaceCar(car: Car) {
-    this.cars = this.carsSvc.replace(car).all();
+    this.carsSvc
+      .replace(car)
+      .then(() => this.carsSvc.all())
+      .then(cars => {
+        this.cars = cars;
+      });
+    // this.cars = this.carsSvc.replace(car).all();
     this.editCarId = -1;
   }
 

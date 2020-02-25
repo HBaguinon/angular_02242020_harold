@@ -9,8 +9,8 @@ import { Car } from '../../models/car';
 })
 export class CarTableComponent implements OnInit {
 
-  @Input() // sortColName added @Input()
-  sortColName = '';
+  // @Input() // sortColName added @Input()
+  // sortColName = '';
 
   @Input()
   cars: Car[] = [];
@@ -20,28 +20,31 @@ export class CarTableComponent implements OnInit {
   editCarId = -1;
 
   // this is a getter function, much like C# getter property
-  get sortedCars() {
-    if (this.sortColName.length > 0) {
+  // get sortedCars() {
+  //   if (this.sortColName.length > 0) {
 
-      return this.cars.concat().sort((a: Car, b: Car) => {
+  //     return this.cars.concat().sort((a: Car, b: Car) => {
 
-        const aValue = String(a[this.sortColName]).toUpperCase();
-        const bValue = String(b[this.sortColName]).toUpperCase();
+  //       const aValue = String(a[this.sortColName]).toUpperCase();
+  //       const bValue = String(b[this.sortColName]).toUpperCase();
 
-        if (aValue < bValue) {
-          return -1;
-        } else if (aValue > bValue) {
-          return 1;
-        } else {
-          return 0;
-        }
+  //       if (aValue < bValue) {
+  //         return -1;
+  //       } else if (aValue > bValue) {
+  //         return 1;
+  //       } else {
+  //         return 0;
+  //       }
 
-      });
+  //     });
 
-    } else {
-      return this.cars;
-    }
-  }
+  //   } else {
+  //     return this.cars;
+  //   }
+  // }
+
+  @Output()
+  sortCar = new EventEmitter<string>();
 
   // Edit step 5
   @Output()
@@ -65,9 +68,8 @@ export class CarTableComponent implements OnInit {
   }
 
   doSort(colName: string) {
-    this.sortColNameEmitted.emit(colName);
+    // this.sortColNameEmitted.emit(colName);
+    this.sortCar.emit(colName);
   }
-
-
 
 }
