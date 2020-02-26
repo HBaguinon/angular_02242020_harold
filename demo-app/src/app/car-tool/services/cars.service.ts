@@ -8,24 +8,24 @@ import { Car } from '../models/car';
 })                   // application instead of listing it in the provider
 export class CarsService {
 
-  private cars: Car[] = [
-    { id: 1, make: 'Ford', model: 'Fusion Hybrid', year: 2019, color: 'blue', price: 45000 },
-    { id: 2, make: 'Tesla', model: 'S', year: 2018, color: 'red', price: 100000 },
-  ];
+  // private cars: Car[] = [
+  //   { id: 1, make: 'Ford', model: 'Fusion Hybrid', year: 2019, color: 'blue', price: 45000 },
+  //   { id: 2, make: 'Tesla', model: 'S', year: 2018, color: 'red', price: 100000 },
+  // ];
 
-  private sortColName = '';
+  // private sortColName = '';
 
   constructor(private httpClient: HttpClient) { }
 
-  setSortColName(sortColName: string) {
-    this.sortColName = sortColName;
-  }
+  // setSortColName(sortColName: string) {
+  //   this.sortColName = sortColName;
+  // }
 
-  all() {
+  all(sortColName = '') {
     // return this.cars.concat();
-    if (this.sortColName.length > 0) {
+    if (sortColName.length > 0) {
       return this.httpClient
-        .get<Car[]>('http://localhost:4250/cars?_sort=' + this.sortColName).toPromise();
+        .get<Car[]>('http://localhost:4250/cars?_sort=' + encodeURIComponent(sortColName)).toPromise();
     } else {
       return this.httpClient
         .get<Car[]>('http://localhost:4250/cars').toPromise();
